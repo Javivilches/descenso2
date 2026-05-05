@@ -337,6 +337,29 @@ input{
         font-size:12px;
         padding:0 10px;
     }
+
+.control-puntos{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    margin-top:10px;
+}
+
+.control-puntos button{
+    width:44px;
+    height:44px;
+    border-radius:10px;
+    border:none;
+    background:#ef4444;
+    color:white;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.control-puntos button:active{
+    transform:scale(0.95);
+}
 }
 </style>
 </head>
@@ -572,8 +595,14 @@ function renderPartidos(){
         <div class="bloque-puntos">
             ¿Cuántos puntos crees que sumará en estos partidos?
             <br>
-            <input class="input-puntos" type="number" min="0" max="12" value="${val}" placeholder="0-12"
-            oninput="guardarPuntos('${equipoSeleccionado}',this.value)">
+            <div class="control-puntos">
+    <button onclick="sumarPunto('${equipoSeleccionado}',-1)">−</button>
+
+    <input class="input-puntos" type="number" min="0" max="12" value="${val}"
+    oninput="guardarPuntos('${equipoSeleccionado}',this.value)">
+
+    <button onclick="sumarPunto('${equipoSeleccionado}',1)">+</button>
+</div>
         </div>
 
     </div>
@@ -594,6 +623,21 @@ function guardar(j,i,gl,gv){
 
 function guardarPuntos(eq,val){
     puntosExtra[eq] = parseInt(val);
+    calcular();
+}
+
+function sumarPunto(eq,valor){
+
+    let actual = puntosExtra[eq] ?? 0;
+
+    actual += valor;
+
+    if(actual < 0) actual = 0;
+    if(actual > 12) actual = 12;
+
+    puntosExtra[eq] = actual;
+
+    renderPartidos();
     calcular();
 }
 function seleccionarEquipo(eq){
