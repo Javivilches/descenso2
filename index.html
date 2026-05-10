@@ -401,16 +401,24 @@ SIMULADOR DESCENSO
 <script>
 
 const base = {
-"OVIEDO":28,"LEVANTE":33,"SEVILLA":37,"MALLORCA":35,
-"ALAVÉS":36,"GIRONA":38,"ESPANYOL":39,"ELCHE":38,
+"LEVANTE":36,
+"SEVILLA":40,
+"MALLORCA":35,
+"ALAVÉS":37,
+"GIRONA":38,
+"ESPANYOL":39,
+"ELCHE":39,
 "VALENCIA":39
 };
 
 const jornadas = {
 34:[["BETIS","OVIEDO"],["VILLARREAL","LEVANTE"],["SEVILLA","R.SOCIEDAD"],["GIRONA","MALLORCA"],["ALAVÉS","ATHLETIC"],["ESPANYOL","R.MADRID"],["CELTA","ELCHE"],["VALENCIA","ATLÉTICO"],["GETAFE","RAYO"]],
-35:[["OVIEDO","GETAFE"],["LEVANTE","OSASUNA"],["SEVILLA","ESPANYOL"],["MALLORCA","VILLARREAL"],["ELCHE","ALAVÉS"],["RAYO","GIRONA"],["ATHLETIC","VALENCIA"]],
-36:[["R.MADRID","OVIEDO"],["CELTA","LEVANTE"],["VILLARREAL","SEVILLA"],["GETAFE","MALLORCA"],["ALAVÉS","BARCELONA"],["GIRONA","R.SOCIEDAD"],["ESPANYOL","ATHLETIC"],["BETIS","ELCHE"],["VALENCIA","RAYO"]],
+35:[["MALLORCA","VILLARREAL"],["RAYO","GIRONA"],["ATHLETIC","VALENCIA"]],
+
+36:[["CELTA","LEVANTE"],["VILLARREAL","SEVILLA"],["GETAFE","MALLORCA"],["ALAVÉS","BARCELONA"],["GIRONA","R.SOCIEDAD"],["ESPANYOL","ATHLETIC"],["BETIS","ELCHE"],["VALENCIA","RAYO"]],
+
 37:[["OVIEDO","ALAVÉS"],["LEVANTE","MALLORCA"],["SEVILLA","R.MADRID"],["ATLÉTICO","GIRONA"],["OSASUNA","ESPANYOL"],["ELCHE","GETAFE"],["R.SOCIEDAD","VALENCIA"],["RAYO","VILLARREAL"]],
+
 38:[["MALLORCA","OVIEDO"],["BETIS","LEVANTE"],["CELTA","SEVILLA"],["ALAVÉS","RAYO"],["GIRONA","ELCHE"],["ESPANYOL","R.SOCIEDAD"],["VALENCIA","BARCELONA"]]
 };
 
@@ -502,18 +510,7 @@ let resultados = {};
 let puntosExtra = {};
 let equipoSeleccionado = Object.keys(base)[0];
 
-const fijos = {
-    "34-0": [3,0],   // BETIS - OVIEDO
-    "34-1": [5,1],   // VILLARREAL - LEVANTE
-    // "34-2" libre → SEVILLA - R.SOCIEDAD
-
-    "34-3": [0,1],   // GIRONA - MALLORCA
-    "34-4": [2,4],   // ALAVÉS - ATHLETIC
-    "34-5": [0,2],   // ESPANYOL - R.MADRID
-    "34-6": [3,1],   // CELTA - ELCHE
-    "34-7": [0,2],   // VALENCIA - ATLÉTICO
-    "34-8": [0,2]    // GETAFE - RAYO
-};
+const fijos = {};
 
 Object.entries(fijos).forEach(([k,v])=>{
     resultados[k] = {gl:v[0], gv:v[1]};
@@ -809,7 +806,7 @@ while(i < tabla.length){
     final.forEach((t,i)=>{
         html+=`
         <div class="fila ${i>=tabla.length-3?'descenso':''}">
-            <span>${i+11}. ${escudo(t.e)} ${t.e}</span>
+            <span>${i+12}. ${escudo(t.e)} ${t.e}</span>
             <span>${t.p}</span>
         </div>`;
     });
