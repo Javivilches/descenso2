@@ -401,9 +401,10 @@ SIMULADOR DESCENSO
 <script>
 
 const base = {
+"OVIEDO":28,
 "LEVANTE":36,
 "SEVILLA":40,
-"MALLORCA":35,
+"MALLORCA":38,
 "ALAVÉS":37,
 "GIRONA":38,
 "ESPANYOL":39,
@@ -508,7 +509,7 @@ const enfrentamientosDirectos = [
 let jornadaActual = 34;
 let resultados = {};
 let puntosExtra = {};
-let equipoSeleccionado = Object.keys(base)[0];
+let equipoSeleccionado = "LEVANTE";
 
 const fijos = {};
 
@@ -529,7 +530,7 @@ function botonEquipo(eq){
 
 function renderNav(){
 
-    let equipos = Object.keys(base);
+    let equipos = Object.keys(base).filter(eq => eq !== "OVIEDO");
 
     let fila1 = equipos.slice(0,5);
     let fila2 = equipos.slice(5);
@@ -785,16 +786,24 @@ while(i < tabla.length){
 
         let mini = calcularMiniliga(equipos);
 
-        grupo.sort((a,b)=>{
-            let A = mini[a.e];
-            let B = mini[b.e];
+       grupo.sort((a,b)=>{
 
-            if(B.pts !== A.pts) return B.pts - A.pts;
-            if(B.dg !== A.dg) return B.dg - A.dg;
-            if(B.gf !== A.gf) return B.gf - A.gf;
+    if(
+       (a.e==="MALLORCA" && b.e==="GIRONA") ||
+       (a.e==="GIRONA" && b.e==="MALLORCA")
+    ){
+       return a.e==="MALLORCA" ? -1 : 1;
+    }
 
-            return 0;
-        });
+    let A = mini[a.e];
+    let B = mini[b.e];
+
+    if(B.pts !== A.pts) return B.pts - A.pts;
+    if(B.dg !== A.dg) return B.dg - A.dg;
+    if(B.gf !== A.gf) return B.gf - A.gf;
+
+    return 0;
+});
     }
 
     final.push(...grupo);
